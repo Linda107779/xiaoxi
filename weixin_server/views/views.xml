@@ -1,0 +1,60 @@
+<odoo>
+  <data>
+    <!-- explicit list view definition -->
+    <!--
+    <record model="ir.ui.view" id="weixin_server.list">
+      <field name="name">weixin_server list</field>
+      <field name="model">weixin_server.weixin_server</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="value"/>
+          <field name="value2"/>
+        </tree>
+      </field>
+    </record>
+    -->
+
+    <!-- actions opening views on models -->
+    <!--
+    <record model="ir.actions.act_window" id="weixin_server.action_window">
+      <field name="name">weixin_server window</field>
+      <field name="res_model">weixin_server.weixin_server</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+    -->
+
+    <!-- server action to the one above -->
+    <!--
+    <record model="ir.actions.server" id="weixin_server.action_server">
+      <field name="name">weixin_server server</field>
+      <field name="model_id" ref="model_weixin_server_weixin_server"/>
+      <field name="state">code</field>
+      <field name="code">
+        action = {
+          "type": "ir.actions.act_window",
+          "view_mode": "tree,form",
+          "res_model": self._name,
+        }
+      </field>
+    </record>
+    -->
+
+    <!-- Top menu item -->
+    <!--
+    <menuitem name="weixin_server" id="weixin_server.menu_root"/>
+    -->
+    <!-- menu categories -->
+    <!--
+    <menuitem name="Menu 1" id="weixin_server.menu_1" parent="weixin_server.menu_root"/>
+    <menuitem name="Menu 2" id="weixin_server.menu_2" parent="weixin_server.menu_root"/>
+    -->
+    <!-- actions -->
+    <!--
+    <menuitem name="List" id="weixin_server.menu_1_list" parent="weixin_server.menu_1"
+              action="weixin_server.action_window"/>
+    <menuitem name="Server to list" id="weixin_server" parent="weixin_server.menu_2"
+              action="weixin_server.action_server"/>
+    -->
+  </data>
+</odoo>
