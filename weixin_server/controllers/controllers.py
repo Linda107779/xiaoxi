@@ -23,14 +23,13 @@ class WeixinServer(http.Controller):
         timestamp = kwargs.get('timestamp')
         nonce = kwargs.get('nonce')
         if self.check_signature(signature, timestamp, nonce):
-            return '你好'
-           # return '<xml> \
-           #          <ToUserName><![CDATA[toUser]]></ToUserName> \
-           #          <FromUserName><![CDATA[fromUser]]></FromUserName> \
-           #          <CreateTime>12345678</CreateTime> \
-           #          <MsgType><![CDATA[text]]></MsgType> \
-           #          <Content><![CDATA[你好]]></Content> \
-           #      </xml>'
+           return '<xml> \
+                    <ToUserName><![CDATA[toUser]]></ToUserName> \
+                    <FromUserName><![CDATA[fromUser]]></FromUserName> \
+                    <CreateTime>12345678</CreateTime> \
+                    <MsgType><![CDATA[text]]></MsgType> \
+                    <Content><![CDATA[你好]]></Content> \
+                </xml>'
         else:
             return 'error'
 
