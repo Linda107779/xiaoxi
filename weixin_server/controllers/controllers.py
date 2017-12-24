@@ -3,6 +3,7 @@ from odoo import http
 from odoo.http import  request
 import hashlib
 import werkzeug
+from lxml import etree
 
 class WeixinServer(http.Controller):
 
@@ -20,6 +21,10 @@ class WeixinServer(http.Controller):
         print request.params
         print request.httprequest.data
 
+        data = request.httprequest.data
+        tree = etree.parse(data)
+        root = tree.getroot()
+
         signature = kwargs.get('signature')
         timestamp = kwargs.get('timestamp')
         nonce = kwargs.get('nonce')
@@ -27,13 +32,13 @@ class WeixinServer(http.Controller):
         if self.check_signature(signature, timestamp, nonce):
             response = werkzeug.wrappers.Response()
             response.mimetype = 'application/xml'
-            response.data = '<xml> \
-                    <ToUserName><![CDATA[toUser]]></ToUserName> \
-                    <FromUserName><![CDATA[fromUser]]></FromUserName> \
-                    <CreateTime>12345678</CreateTime> \
-                    <MsgType><![CDATA[text]]></MsgType> \
-                    <Content><![CDATA[你好]]></Content> \
-                </xml>'
+            response.data =     '<xml> \
+                                    <ToUserName><![CDATA[toUser]]></ToUserName> \
+                                    <FromUserName><![CDATA[fromUser]]></FromUserName> \
+                                    <CreateTime>12345678</CreateTime> \
+                                    <MsgType><![CDATA[text]]></MsgType> \
+                                    <Content><![CDATA[你好]]></Content> \
+                                </xml>'
 
             if echostr:
                 return echostr
