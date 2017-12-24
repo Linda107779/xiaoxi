@@ -26,7 +26,7 @@ class WeixinServer(http.Controller):
         print request.httprequest.data
 
         data = request.httprequest.data
-        tree = etree.parse(data)
+        tree = etree.fromstring(data)
         print tree
         # root = tree.getroot()
 
