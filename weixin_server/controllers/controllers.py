@@ -54,6 +54,7 @@ class WeixinServer(http.Controller):
         timestamp = kwargs.get('timestamp')
         nonce = kwargs.get('nonce')
         echostr = kwargs.get('echostr')
+        print 'echosrt %s' % echostr
         if self.check_signature(signature, timestamp, nonce):
             response = werkzeug.wrappers.Response()
             # response.mimetype = 'text/xml'
