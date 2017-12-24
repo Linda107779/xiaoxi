@@ -23,6 +23,7 @@ class WeixinServer(http.Controller):
         signature = kwargs.get('signature')
         timestamp = kwargs.get('timestamp')
         nonce = kwargs.get('nonce')
+        echostr = kwargs.get('echostr')
         if self.check_signature(signature, timestamp, nonce):
             response = werkzeug.wrappers.Response()
             response.mimetype = 'application/xml'
@@ -34,7 +35,7 @@ class WeixinServer(http.Controller):
                     <Content><![CDATA[你好]]></Content> \
                 </xml>'
 
-            return response
+            return echostr
            # return '<xml> \
            #          <ToUserName><![CDATA[toUser]]></ToUserName> \
            #          <FromUserName><![CDATA[fromUser]]></FromUserName> \
