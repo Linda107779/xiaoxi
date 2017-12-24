@@ -21,9 +21,9 @@ class WeixinServer(http.Controller):
         print request.params
         print request.httprequest.data
 
-        data = request.httprequest.data
-        tree = etree.parse(data)
-        root = tree.getroot()
+        # data = request.httprequest.data
+        # tree = etree.parse(data)
+        # root = tree.getroot()
 
         signature = kwargs.get('signature')
         timestamp = kwargs.get('timestamp')
