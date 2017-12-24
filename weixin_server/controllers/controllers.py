@@ -5,6 +5,10 @@ import hashlib
 import werkzeug
 from lxml import etree
 
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
 class WeixinServer(http.Controller):
 
 
@@ -21,8 +25,9 @@ class WeixinServer(http.Controller):
         print request.params
         print request.httprequest.data
 
-        # data = request.httprequest.data
-        # tree = etree.parse(data)
+        data = request.httprequest.data
+        tree = etree.parse(data)
+        print tree
         # root = tree.getroot()
 
         signature = kwargs.get('signature')
