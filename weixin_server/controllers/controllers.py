@@ -13,22 +13,26 @@ class WeixinServer(http.Controller):
         return hashlib.sha1(s).hexdigest() == signature
 
 
-        @http.route('/weixin_server/', auth='public', csrf=False)
-        def echo(self, **kwargs):
-            # print dir(request)
-            print request.params
-            print request.httprequest.data
-            if self.check_signature(signature, timestamp, nonce):
-                return '你好'
-               # return '<xml> \
-               #          <ToUserName><![CDATA[toUser]]></ToUserName> \
-               #          <FromUserName><![CDATA[fromUser]]></FromUserName> \
-               #          <CreateTime>12345678</CreateTime> \
-               #          <MsgType><![CDATA[text]]></MsgType> \
-               #          <Content><![CDATA[你好]]></Content> \
-               #      </xml>'
-            else:
-                return 'error'
+    @http.route('/weixin_server/', auth='public', csrf=False)
+    def echo(self, **kwargs):
+        # print dir(request)
+        print request.params
+        print request.httprequest.data
+
+        signature = kwargs.get('signature')
+        timestamp = kwargs.get('timestamp')
+        nonce = kwargs.get('nonce')
+        if self.check_signature(signature, timestamp, nonce):
+            return '你好'
+           # return '<xml> \
+           #          <ToUserName><![CDATA[toUser]]></ToUserName> \
+           #          <FromUserName><![CDATA[fromUser]]></FromUserName> \
+           #          <CreateTime>12345678</CreateTime> \
+           #          <MsgType><![CDATA[text]]></MsgType> \
+           #          <Content><![CDATA[你好]]></Content> \
+           #      </xml>'
+        else:
+            return 'error'
 
 
 
