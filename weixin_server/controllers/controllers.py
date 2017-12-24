@@ -31,9 +31,14 @@ class WeixinServer(http.Controller):
         parsed = etree.XML(data, parse)
 
         a = parsed.xpath('//ToUserName')[0]
+        a_text = a.text
         b = parsed.xpath('//FromUserName')[0]
+        b_text = b.text
 
-        a.text, b.text = b.text, a.text
+
+
+        a.text = u'!![CDATA[%s]]' % b_text
+        b.text = u'!![CDATA[%s]]' % a_text
 
         print etree.tostring(parsed)
 
