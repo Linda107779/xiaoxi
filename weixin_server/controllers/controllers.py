@@ -27,7 +27,17 @@ class WeixinServer(http.Controller):
 
         data = request.httprequest.data
         tree = etree.fromstring(data)
-        print tree
+        parse = etree.XMLParser(strip_cdata=False)
+        parsed = etree.XML(data, parse)
+
+        a = parsed.xpath('//ToUserName')[0]
+        b = parsed.xpath('//FromUserName')[0]
+
+        a.text, b.text = b.text, a.text
+
+        print etree.tostring(parsed)
+
+
         # root = tree.getroot()
 
         signature = kwargs.get('signature')
@@ -37,24 +47,27 @@ class WeixinServer(http.Controller):
         if self.check_signature(signature, timestamp, nonce):
             response = werkzeug.wrappers.Response()
             response.mimetype = 'application/xml'
-            response.data =     '<xml> \
-                                    <ToUserName><![CDATA[toUser]]></ToUserName> \
-                                    <FromUserName><![CDATA[fromUser]]></FromUserName> \
-                                    <CreateTime>12345678</CreateTime> \
-                                    <MsgType><![CDATA[text]]></MsgType> \
-                                    <Content><![CDATA[你好]]></Content> \
-                                </xml>'
+            # response.data =     '<xml> \
+            #                         <ToUserName><![CDATA[toUser]]></ToUserName> \
+            #                         <FromUserName><![CDATA[fromUser]]></FromUserName> \
+            #                         <CreateTime>12345678</CreateTime> \
+            #                         <MsgType><![CDATA[text]]></MsgType> \
+            #                         <Content><![CDATA[你好]]></Content> \
+            #                     </xml>'
+
+            response.data = etree.tostring(parsed)
 
             if echostr:
                 return echostr
             else:
-                return '<xml> \
-                                    <ToUserName><![CDATA[toUser]]></ToUserName> \
-                                    <FromUserName><![CDATA[fromUser]]></FromUserName> \
-                                    <CreateTime>12345678</CreateTime> \
-                                    <MsgType><![CDATA[text]]></MsgType> \
-                                    <Content><![CDATA[你好]]></Content> \
-                                </xml>'
+                'error'
+                # return '<xml> \
+                #                     <ToUserName><![CDATA[toUser]]></ToUserName> \
+                #                     <FromUserName><![CDATA[fromUser]]></FromUserName> \
+                #                     <CreateTime>12345678</CreateTime> \
+                #                     <MsgType><![CDATA[text]]></MsgType> \
+                #                     <Content><![CDATA[你好]]></Content> \
+                #                 </xml>'
 
             # return echostr
            # return '<xml> \
