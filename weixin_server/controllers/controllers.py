@@ -35,7 +35,12 @@ class WeixinServer(http.Controller):
                     <Content><![CDATA[你好]]></Content> \
                 </xml>'
 
-            return echostr
+            if echostr:
+                return echostr
+            else:
+                return response
+
+            # return echostr
            # return '<xml> \
            #          <ToUserName><![CDATA[toUser]]></ToUserName> \
            #          <FromUserName><![CDATA[fromUser]]></FromUserName> \
