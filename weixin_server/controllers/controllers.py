@@ -13,7 +13,7 @@ class WeixinServer(http.Controller):
         return hashlib.sha1(s).hexdigest() == signature
 
     @http.route('/weixin_server/', auth='public', csrf=False)
-    def echo(self, signature, timestamp, nonce):
+    def echo(self, echostr, signature, timestamp, nonce):
         # print dir(request)
         print request.params
         print request.httprequest.data
