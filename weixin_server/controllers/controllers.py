@@ -25,7 +25,7 @@ class WeixinServer(http.Controller):
         nonce = kwargs.get('nonce')
         if self.check_signature(signature, timestamp, nonce):
             response = werkzeug.wrappers.Response()
-            response.mimetype = 'image/gif'
+            response.mimetype = 'application/xml'
             response.data = '<xml> \
                     <ToUserName><![CDATA[toUser]]></ToUserName> \
                     <FromUserName><![CDATA[fromUser]]></FromUserName> \
