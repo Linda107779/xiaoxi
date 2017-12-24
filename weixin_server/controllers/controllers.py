@@ -59,7 +59,7 @@ class WeixinServer(http.Controller):
                 return echostr
             else:
                 print u'走的是这条路吗!!!'
-                return response
+                return etree.tostring(parsed)
 
         else:
             return 'error'
