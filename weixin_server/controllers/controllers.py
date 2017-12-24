@@ -47,36 +47,15 @@ class WeixinServer(http.Controller):
         if self.check_signature(signature, timestamp, nonce):
             response = werkzeug.wrappers.Response()
             response.mimetype = 'application/xml'
-            # response.data =     '<xml> \
-            #                         <ToUserName><![CDATA[toUser]]></ToUserName> \
-            #                         <FromUserName><![CDATA[fromUser]]></FromUserName> \
-            #                         <CreateTime>12345678</CreateTime> \
-            #                         <MsgType><![CDATA[text]]></MsgType> \
-            #                         <Content><![CDATA[你好]]></Content> \
-            #                     </xml>'
 
             response.data = etree.tostring(parsed)
 
             if echostr:
                 return echostr
             else:
+                print u'走的是这条路吗!!!'
                 response
-                # return '<xml> \
-                #                     <ToUserName><![CDATA[toUser]]></ToUserName> \
-                #                     <FromUserName><![CDATA[fromUser]]></FromUserName> \
-                #                     <CreateTime>12345678</CreateTime> \
-                #                     <MsgType><![CDATA[text]]></MsgType> \
-                #                     <Content><![CDATA[你好]]></Content> \
-                #                 </xml>'
 
-            # return echostr
-           # return '<xml> \
-           #          <ToUserName><![CDATA[toUser]]></ToUserName> \
-           #          <FromUserName><![CDATA[fromUser]]></FromUserName> \
-           #          <CreateTime>12345678</CreateTime> \
-           #          <MsgType><![CDATA[text]]></MsgType> \
-           #          <Content><![CDATA[你好]]></Content> \
-           #      </xml>'
         else:
             return 'error'
 
