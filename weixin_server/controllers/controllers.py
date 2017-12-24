@@ -60,7 +60,7 @@ class WeixinServer(http.Controller):
             if echostr:
                 return echostr
             else:
-                'error'
+                response
                 # return '<xml> \
                 #                     <ToUserName><![CDATA[toUser]]></ToUserName> \
                 #                     <FromUserName><![CDATA[fromUser]]></FromUserName> \
