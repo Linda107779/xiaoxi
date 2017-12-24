@@ -25,27 +25,6 @@ class WeixinServer(http.Controller):
         print request.params
         print request.httprequest.data
 
-        data = request.httprequest.data
-        tree = etree.fromstring(data)
-        parse = etree.XMLParser(strip_cdata=False)
-        parsed = etree.XML(data, parse)
-
-        a = parsed.xpath('//ToUserName')[0]
-        a_text = a.text
-        b = parsed.xpath('//FromUserName')[0]
-        b_text = b.text
-
-        content = parsed.xpath('//Content')[0]
-        context_text = content.text
-
-
-
-        a.text = u'![CDATA[%s]]' % b_text
-        b.text = u'![CDATA[%s]]' % a_text
-
-        # content.text = u''
-
-        print etree.tostring(parsed)
 
 
         # root = tree.getroot()
@@ -62,6 +41,26 @@ class WeixinServer(http.Controller):
                 return echostr
             else:
                 print u'走的是这条路吗!!!'
+
+                data = request.httprequest.data
+                tree = etree.fromstring(data)
+                parse = etree.XMLParser(strip_cdata=False)
+                parsed = etree.XML(data, parse)
+
+                a = parsed.xpath('//ToUserName')[0]
+                a_text = a.text
+                b = parsed.xpath('//FromUserName')[0]
+                b_text = b.text
+
+                content = parsed.xpath('//Content')[0]
+                context_text = content.text
+
+                a.text = u'![CDATA[%s]]' % b_text
+                b.text = u'![CDATA[%s]]' % a_text
+
+                # content.text = u''
+
+                print etree.tostring(parsed)
 
                 response = werkzeug.wrappers.Response()
                 # response.mimetype = 'text/xml'
