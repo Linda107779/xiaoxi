@@ -6,17 +6,36 @@ import hashlib
 class WeixinServer(http.Controller):
 
 
-    def check_signature(signature, timestamp, nonce, token):
-        L = [timestamp, nonce, token]
+    def check_signature(self, signature, timestamp, nonce):
+        L = [timestamp, nonce, 'weixinxiaoxiao']
         L.sort()
         s = L[0] + L[1] + L[2]
         return hashlib.sha1(s).hexdigest() == signature
 
-    @http.route('/weixin_server/', auth='public')
-    def echo(self, signature, timestamp, nonce, token):
-        print request
-        print signature
-        return 'ok'
+    @http.route('/weixin_server/', auth='public', csrf=False)
+    def echo(self, signature, timestamp, nonce):
+        # print dir(request)
+        print request.params
+        print request.httprequest.data
+        if self.check_signature(signature, timestamp, nonce):
+           return '<xml> \
+                    <ToUserName><![CDATA[toUser]]></ToUserName> \
+                    <FromUserName><![CDATA[fromUser]]></FromUserName> \
+                    <CreateTime>12345678</CreateTime> \
+                    <MsgType><![CDATA[text]]></MsgType> \
+                    <Content><![CDATA[你好]]></Content> \
+                </xml>'
+        else:
+            return 'error'
+            # return '<xml> \
+            #                     <ToUserName><![CDATA[toUser]]></ToUserName> \
+            #                     <FromUserName><![CDATA[fromUser]]></FromUserName> \
+            #                     <CreateTime>12345678</CreateTime> \
+            #                     <MsgType><![CDATA[text]]></MsgType> \
+            #                     <Content><![CDATA[你好]]></Content> \
+            #                 </xml>'
+
+
 
 #     @http.route('/weixin_server/weixin_server/', auth='public')
 #     def index(self, **kw):
