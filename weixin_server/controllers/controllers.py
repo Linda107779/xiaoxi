@@ -18,13 +18,14 @@ class WeixinServer(http.Controller):
         print request.params
         print request.httprequest.data
         if self.check_signature(signature, timestamp, nonce):
-           return '<xml> \
-                    <ToUserName><![CDATA[toUser]]></ToUserName> \
-                    <FromUserName><![CDATA[fromUser]]></FromUserName> \
-                    <CreateTime>12345678</CreateTime> \
-                    <MsgType><![CDATA[text]]></MsgType> \
-                    <Content><![CDATA[你好]]></Content> \
-                </xml>'
+            return echostr
+           # return '<xml> \
+           #          <ToUserName><![CDATA[toUser]]></ToUserName> \
+           #          <FromUserName><![CDATA[fromUser]]></FromUserName> \
+           #          <CreateTime>12345678</CreateTime> \
+           #          <MsgType><![CDATA[text]]></MsgType> \
+           #          <Content><![CDATA[你好]]></Content> \
+           #      </xml>'
         else:
             return 'error'
             # return '<xml> \
