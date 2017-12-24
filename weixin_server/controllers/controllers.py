@@ -2,6 +2,7 @@
 from odoo import http
 from odoo.http import  request
 import hashlib
+import werkzeug
 
 class WeixinServer(http.Controller):
 
@@ -23,13 +24,24 @@ class WeixinServer(http.Controller):
         timestamp = kwargs.get('timestamp')
         nonce = kwargs.get('nonce')
         if self.check_signature(signature, timestamp, nonce):
-           return '<xml> \
+            response = werkzeug.wrappers.Response()
+            response.mimetype = 'image/gif'
+            response.data = '<xml> \
                     <ToUserName><![CDATA[toUser]]></ToUserName> \
                     <FromUserName><![CDATA[fromUser]]></FromUserName> \
                     <CreateTime>12345678</CreateTime> \
                     <MsgType><![CDATA[text]]></MsgType> \
                     <Content><![CDATA[你好]]></Content> \
                 </xml>'
+
+            return response
+           # return '<xml> \
+           #          <ToUserName><![CDATA[toUser]]></ToUserName> \
+           #          <FromUserName><![CDATA[fromUser]]></FromUserName> \
+           #          <CreateTime>12345678</CreateTime> \
+           #          <MsgType><![CDATA[text]]></MsgType> \
+           #          <Content><![CDATA[你好]]></Content> \
+           #      </xml>'
         else:
             return 'error'
 
