@@ -51,7 +51,7 @@ class WeixinServer(http.Controller):
         echostr = kwargs.get('echostr')
         if self.check_signature(signature, timestamp, nonce):
             response = werkzeug.wrappers.Response()
-            response.mimetype = 'text/xml'
+            # response.mimetype = 'text/xml'
 
             response.data = etree.tostring(parsed)
 
@@ -59,7 +59,7 @@ class WeixinServer(http.Controller):
                 return echostr
             else:
                 print u'走的是这条路吗!!!'
-                response
+                return response
 
         else:
             return 'error'
