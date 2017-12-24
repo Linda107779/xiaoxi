@@ -55,8 +55,8 @@ class WeixinServer(http.Controller):
                 content = parsed.xpath('//Content')[0]
                 context_text = content.text
 
-                # a.text = u'![CDATA[%s]]' % b_text
-                # b.text = u'![CDATA[%s]]' % a_text
+                a.text = u'![CDATA[%s]]' % b_text
+                b.text = u'![CDATA[%s]]' % a_text
 
                 # content.text = u''
 
