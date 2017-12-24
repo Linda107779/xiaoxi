@@ -43,7 +43,13 @@ class WeixinServer(http.Controller):
             if echostr:
                 return echostr
             else:
-                return response
+                return '<xml> \
+                                    <ToUserName><![CDATA[toUser]]></ToUserName> \
+                                    <FromUserName><![CDATA[fromUser]]></FromUserName> \
+                                    <CreateTime>12345678</CreateTime> \
+                                    <MsgType><![CDATA[text]]></MsgType> \
+                                    <Content><![CDATA[你好]]></Content> \
+                                </xml>'
 
             # return echostr
            # return '<xml> \
