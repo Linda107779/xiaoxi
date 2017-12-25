@@ -38,11 +38,13 @@ class WeixinServer(http.Controller):
 
 
             if echostr:
+		print '输出的数据是多少?'
                 return echostr
             else:
                 print u'走的是这条路吗!!!'
 
                 data = request.httprequest.data
+		print u'data is %s' % data
                 tree = etree.fromstring(data)
                 parse = etree.XMLParser(strip_cdata=False)
                 parsed = etree.XML(data, parse)
@@ -52,8 +54,9 @@ class WeixinServer(http.Controller):
                 b = parsed.xpath('//FromUserName')[0]
                 b_text = b.text
 
-                content = parsed.xpath('//Content')[0]
-                context_text = content.text
+                #content = parsed.xpath('//Content')[0]
+                #context_text = content.text
+		#content.text = u'![CDATA[%s]]' % u'kkkkk'
 
                 a.text = u'![CDATA[%s]]' % b_text
                 b.text = u'![CDATA[%s]]' % a_text
@@ -66,7 +69,8 @@ class WeixinServer(http.Controller):
                 # response.mimetype = 'text/xml'
 
                 response.data = etree.tostring(parsed)
-                return response
+                #return response
+                return response.data
 
         else:
             return 'error'
