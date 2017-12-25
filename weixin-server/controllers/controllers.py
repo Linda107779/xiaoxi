@@ -18,6 +18,11 @@ class WeixinServer(http.Controller):
         s = L[0] + L[1] + L[2]
         return hashlib.sha1(s).hexdigest() == signature
 
+    @http.route('/MP_verify_sjFn3qdwQxTBwxKl.txt', auth='public', csrf=False)
+    def index2(self):
+        import os
+        print os.getcwd()
+        return open(os.path.join(os.getcwd(), 'MP_verify_sjFn3qdwQxTBwxKl.txt')).read()
 
     @http.route('/weixin_server/', auth='public', csrf=False)
     def echo(self, **kwargs):
