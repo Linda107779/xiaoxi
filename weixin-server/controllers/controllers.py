@@ -41,15 +41,14 @@ class WeixinServer(http.Controller):
         print 'echosrt %s' % echostr
         if self.check_signature(signature, timestamp, nonce):
 
-
             if echostr:
-		print '输出的数据是多少?'
+                print '输出的数据是多少?'
                 return echostr
             else:
                 print u'走的是这条路吗!!!'
 
                 data = request.httprequest.data
-		print u'data is %s' % data
+                print u'data is %s' % data
                 tree = etree.fromstring(data)
                 parse = etree.XMLParser(strip_cdata=False)
                 parsed = etree.XML(data, parse)
@@ -75,7 +74,7 @@ class WeixinServer(http.Controller):
 
                 response.data = etree.tostring(parsed)
                 #return response
-                return response.data
+                return 'success'
 
         else:
             return 'error'
