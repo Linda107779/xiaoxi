@@ -73,8 +73,8 @@ class WeixinServer(http.Controller):
                 # response.mimetype = 'text/xml'
 
                 response.data = etree.tostring(parsed)
-                #return response
-                return 'success'
+                return response
+                # return 'success'
 
         else:
             return 'error'
